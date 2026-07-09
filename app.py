@@ -1,4 +1,6 @@
-from flask import Flask,render_template
+from flask import Flask
+from flask import render_template
+from flask import request
 
 app = Flask(__name__)
 
@@ -48,17 +50,6 @@ def about_page():
 
     )
 
-@app.route("/contact")
-def contact():
-
-	return render_template(
-
-	"contact.html",
-
-	blog_name="Flask Blog"
-
-    )
-
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -88,8 +79,27 @@ def internal_server_error(error):
         blog_name="Flask Blog"
 
     ), 500
-    
 
 
+@app.route("/contact", methods=["GET", "POST"])
+def contact_page():
+
+    if request.method == "POST":
+
+        name = request.form.get("name")
+        email = request.form.get("email")
+        phone = request.form.get("phone")
+        message = request.form.get("message")
+
+        print(name)
+        print(email)
+        print(phone)
+        print(message)
+
+    return render_template(
+        "contact.html",
+        blog_name="Flask Blog"
+    )
+# print(app.url_map)
 if __name__ == "__main__":
 	app.run(debug=True)
