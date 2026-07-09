@@ -25,7 +25,30 @@ rel="stylesheet">
 <p class="lead">
 Welcome to our Flask learning journey.
 </p>
+<nav class="mb-4">
 
+<a href="{{ url_for('home_page') }}"
+class="btn btn-primary">
+
+Home
+
+</a>
+
+<a href="{{ url_for('about_page') }}"
+class="btn btn-success">
+
+About
+
+</a>
+
+<a href="{{ url_for('contact') }}"
+class="btn btn-warning">
+
+Contact
+
+</a>
+
+</nav>
 <p>
 Created by <strong>{{ owner }}</strong>
 </p>
