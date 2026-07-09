@@ -1,44 +1,37 @@
-from flask import Flask
+from flask import Flask,render_template
 
 app = Flask(__name__)
 
+
 @app.route("/")
-def home_page():
-    return "<h1>Hello Flask!</h1>"
+def home():
+
+		blog_name = "Flask Blog"
+		
+		owner = "Bilal Asghar"
+		
+
+		total_posts = 3
+
+		posts = [
+					"Introduction to Flask",
+					"Understanding Routes",
+					"Learning Jinja2 Templates"
+		    ]
+		
+		return render_template(
+			"index.html",
+			blog_name = blog_name,
+			owner = owner,
+			total_posts = total_posts,
+			posts = posts
+    )
+
 
 @app.route("/about")
-def about_page():
-    return "<h1>About page</h1>"
+def about():
+	return render_template("about.html")
 
-@app.route("/contact")
-def contact_page():
-    return "<h1>Contact page</h1>"
-
-@app.route("/user/<name>")
-def user(name):
-    return f"Welcome {name}"
-
-# @app.route("/student/<id>")
-# def student(id):
-#     return f"Student ID is {id}"
-
-# "Is Bilal an ID?"
-
-# "No."
-
-# Exactly. We need to tell Flask Only numbers are allowed. This is called a Converter.
-
-@app.route("/student/<int:id>")
-def student(id):
-    return f"Student ID is {id}"
-
-@app.route("/price/<float:amount>")
-def price(amount):
-    return f"Price is Rs. {amount}"
-
-# @app.route("/files/<path:filename>")
-# def files(filename):
-#     return f"Requested File: {filename}"
 
 if __name__ == "__main__":
-    app.run(debug=True)
+		app.run(debug=True)
