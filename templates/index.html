@@ -1,18 +1,6 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
-
-<head>
-<title>{{ blog_name }}</title>
-</head>
-
-<body>
-
-<h1>{{ blog_name }}</h1>
-
-<p>Created by {{ owner }}</p>
-
-<hr>
+{% block content %}
 
 <h2>Latest Blog Posts</h2>
 
@@ -20,12 +8,22 @@
 
     {% for post in posts %}
 
-		<h3>{{ post }}</h3>
+<div class="card mt-3">
+
+<div class="card-body">
+
+<h5>{{ post }}</h5>
+
+</div>
+
+</div>
 
     {% endfor %}
 
 {% else %}
 
-	<p>No blog posts available.</p>
+<p>No Blog Posts Available.</p>
 
 {% endif %}
+
+{% endblock %}

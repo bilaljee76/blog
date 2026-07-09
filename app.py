@@ -4,34 +4,50 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def home():
+def home_page():
 
-		blog_name = "Flask Blog"
-		
-		owner = "Bilal Asghar"
-		
+	blog_name = "Flask Blog"
 
-		total_posts = 3
+	owner = "Bilal Asghar"
 
-		posts = [
-					"Introduction to Flask",
-					"Understanding Routes",
-					"Learning Jinja2 Templates"
-		    ]
-		
-		return render_template(
-			"index.html",
-			blog_name = blog_name,
-			owner = owner,
-			total_posts = total_posts,
-			posts = posts
-    )
+	total_posts = 3
+
+	posts= [
+
+		"Introduction to Flask",
+
+		"Understanding Routes",
+
+		"Learning Jinja2"
+
+		]
+
+	return render_template(
+
+		"index.html",
+
+		blog_name = blog_name,
+
+		owner = owner,
+
+		total_posts = total_posts,
+
+		posts = posts
+
+		)
 
 
 @app.route("/about")
-def about():
-	return render_template("about.html")
+def about_page():
+
+	return render_template(
+
+	"about.html",
+
+	blog_name="Flask Blog"
+
+    )
 
 
 if __name__ == "__main__":
-		app.run(debug=True)
+	app.run(debug=True)
