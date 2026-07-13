@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}<h2>Contact Us</h2>
+
+<form action="{{ url_for('contact_page') }}" method="POST">
+    <div class="mb-3">
+        <label class="form-label">
+            Full Name
+        </label>
+	
+    	<input type="text" name="name" class="form-control">
+	</div>
+	
+	<div class="mb-3">
+        <label class="form-label">
+            Email Address
+        </label>
+        <input type="email" name="email" class="form-control">
+	</div>
+    <div class="mb-3">
+        <label class="form-label">
+            Phone
+        </label>
+        <input type="email" name="phone" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">
+        Message
+        </label>
+        <textarea class="form-control" name="message" rows="5">
+        </textarea>
+    </div>
+
+    <button class="btn btn-primary">
+        Send Message
+    </button>
+
+</form>
+
+{% endblock %}

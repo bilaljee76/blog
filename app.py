@@ -1,8 +1,14 @@
 from flask import Flask
 from flask import render_template
+
 from flask import request
 
+from forms import ContactForm
+
+
 app = Flask(__name__)
+
+app.config["SECRET_KEY"] = "my-secret-key"
 
 
 @app.route("/")
@@ -81,25 +87,45 @@ def internal_server_error(error):
     ), 500
 
 
+# @app.route("/contact", methods=["GET", "POST"])
+# def contact_page():
+
+#     if request.method == "POST":
+
+#         name = request.form.get("name")
+#         email = request.form.get("email")
+#         phone = request.form.get("phone")
+#         message = request.form.get("message")
+
+#         print(name)
+#         print(email)
+#         print(phone)
+#         print(message)
+
+#     return render_template(
+#         "contact.html",
+#         blog_name="Flask Blog"
+#     )
+
+# For WTF
 @app.route("/contact", methods=["GET", "POST"])
 def contact_page():
+    form = ContactForm()
 
-    if request.method == "POST":
-
-        name = request.form.get("name")
-        email = request.form.get("email")
-        phone = request.form.get("phone")
-        message = request.form.get("message")
-
-        print(name)
-        print(email)
-        print(phone)
-        print(message)
+    if form.validate_on_submit():
+        print(form.name.data)
+        print(form.email.data)
+        print(form.phone.data)
+        print(form.message.data)
 
     return render_template(
         "contact.html",
-        blog_name="Flask Blog"
+        blog_name="Flask Blog",
+        form=form
     )
+
+
 # print(app.url_map)
+
 if __name__ == "__main__":
 	app.run(debug=True)
