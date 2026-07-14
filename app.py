@@ -3,7 +3,7 @@ from flask import render_template
 
 from flask import request
 
-from forms import ContactForm
+from forms import ContactForm, LoginForm
 
 
 app = Flask(__name__)
@@ -120,6 +120,25 @@ def contact_page():
 
     return render_template(
         "contact.html",
+        blog_name="Flask Blog",
+        form=form
+    )
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    form = LoginForm()
+
+    if form.validate_on_submit():
+
+        print("Username:", form.username.data)
+
+        print("Password:", form.password.data)
+
+        print("Remember Me:", form.remember_me.data)
+
+    return render_template(
+        "login.html",
         blog_name="Flask Blog",
         form=form
     )
