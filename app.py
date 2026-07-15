@@ -5,8 +5,16 @@ from flask import request
 
 from forms import ContactForm, LoginForm
 
+from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
+
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
 
 app.config["SECRET_KEY"] = "my-secret-key"
 
