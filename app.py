@@ -5,8 +5,10 @@ from flask import request
 
 from forms import ContactForm, LoginForm
 
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
+from extensions import db
 
+from models import User
 
 app = Flask(__name__)
 
@@ -14,7 +16,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
+db.init_app(app)
 
 app.config["SECRET_KEY"] = "my-secret-key"
 
@@ -151,8 +154,10 @@ def login():
         form=form
     )
 
-
 # print(app.url_map)
+
+with app.app_context():
+     db.create_all()
 
 if __name__ == "__main__":
 	app.run(debug=True)
