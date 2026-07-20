@@ -44,7 +44,7 @@ class User(db.Model):
 
     role_id = db.Column(
         db.Integer,
-        db.ForeignKey("role.id")
+        db.ForeignKey("roles.id")
     )
 
     def __repr__(self):

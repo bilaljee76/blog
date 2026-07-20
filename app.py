@@ -6,9 +6,9 @@ from flask import request
 from forms import ContactForm, LoginForm
 
 # from flask_sqlalchemy import SQLAlchemy
-from extensions import db
+from extensions import db, migrate
 
-from models import User
+from models import User,Role
 
 app = Flask(__name__)
 
@@ -18,6 +18,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # db = SQLAlchemy(app)
 db.init_app(app)
+
+migrate.init_app(app, db)
 
 app.config["SECRET_KEY"] = "my-secret-key"
 
@@ -154,10 +156,119 @@ def login():
         form=form
     )
 
+
+# =======================================
+#         Practice Quesry Start
+# =======================================
+
+
+@app.route("/create-user")
+def create_user():
+
+    user = User(
+        username="Bilal",
+        email="bilal@gmail.com"
+    )
+
+    db.session.add(user)
+
+    db.session.commit()
+
+    return "User Created Successfully"
+
+@app.route("/users")
+def users():
+
+    users = User.query.all()
+
+    output = ""
+
+    for user in users:
+        output += f"{user.username} - {user.email}<br>"
+
+    return output
+
+@app.route("/first-user")
+def first_user():
+
+    user = User.query.first()
+
+    if user:
+        return f"{user.username} - {user.email}"
+
+    return "No User Found"
+
+@app.route("/find-user")
+def find_user():
+
+    user = User.query.filter_by(username="Ali").first()
+
+    if user:
+        return user.email
+
+    return "User Not Found"
+
+@app.route("/count-users")
+def count_users():
+
+    total = User.query.count()
+
+    return f"Total Users : {total}"
+
+@app.route("/sorted-users")
+def sorted_users():
+
+    users = User.query.order_by(User.username).all()
+
+    output = ""
+
+    for user in users:
+        output += f"{user.username}<br>"
+
+    return output
+
+@app.route("/two-users")
+def two_users():
+
+    users = User.query.limit(2).all()
+
+    output = ""
+
+    for user in users:
+        output += f"{user.username}<br>"
+
+    return output
+
+@app.route("/update-user")
+def update_user():
+
+    user = User.query.first()
+
+    user.email = "bilalasghar@gmail.com"
+
+    db.session.commit()
+
+    return "User Updated Successfully"
+
+@app.route("/delete-user")
+def delete_user():
+
+    user = User.query.first()
+
+    db.session.delete(user)
+
+    db.session.commit()
+
+    return "User Deleted Successfully"
+
+
+
 # print(app.url_map)
 
-with app.app_context():
-     db.create_all()
+# with app.app_context():
+#      db.create_all()
+
+
 
 if __name__ == "__main__":
 	app.run(debug=True)
