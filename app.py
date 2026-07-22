@@ -6,7 +6,7 @@ from flask import request
 from forms import ContactForm, LoginForm
 
 # from flask_sqlalchemy import SQLAlchemy
-from extensions import db, migrate
+from extensions import db, migrate, mail
 
 from models import User,Role
 
@@ -20,6 +20,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 migrate.init_app(app, db)
+
+mail.init_app(app)
 
 app.config["SECRET_KEY"] = "my-secret-key"
 
