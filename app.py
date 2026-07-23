@@ -10,6 +10,9 @@ from extensions import db, migrate, mail
 
 from models import User,Role
 
+import os
+
+
 app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
