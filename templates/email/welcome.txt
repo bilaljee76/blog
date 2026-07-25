@@ -1,0 +1,8 @@
+Hello {{ name }}
+
+Welcome to our Flask Blog.
+
+Thank you for joining us.
+
+Regards,
+Bilal Blog Team
