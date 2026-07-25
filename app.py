@@ -8,7 +8,7 @@ from forms import ContactForm, LoginForm
 # from flask_sqlalchemy import SQLAlchemy
 from extensions import db, migrate, mail
 
-from models import User,Role
+from app.models import User,Role
 
 import os
 
